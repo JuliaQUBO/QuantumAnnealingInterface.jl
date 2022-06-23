@@ -1,0 +1,8 @@
+name = "QuantumAnnealingInterface"
+uuid = "d8651ca0-0f93-43a8-b432-4648ccd57c1f"
+authors = ["Pedro Maciel Xavier <pedromxavier@poli.ufrj.br>"]
+version = "0.1.0"
+
+[deps]
+Anneal = "e4d9eb7f-b088-426e-aeb5-1c0dae3d8abb"
+QuantumAnnealing = "4832667a-bab9-40a8-88f6-be9efce3ea89"
