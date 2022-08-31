@@ -79,7 +79,7 @@ function Anneal.sample(annealer::Optimizer{T}) where {T}
     end
 
     # ~*~ Sample states ~*~ #
-    samples = let results = @timed Vector{Int}[sample_state(p, n) for _ = 1:num_reads]
+    states = let results = @timed Vector{Int}[sample_state(p, n) for _ = 1:num_reads]
         time_data["sampling"] = results.time
 
         results.value
@@ -90,7 +90,7 @@ function Anneal.sample(annealer::Optimizer{T}) where {T}
         "origin" => "Quantum Annealing Simulation"
     )
 
-    return Anneal.SampleSet{Int,T}(annealer, samples, metadata)
+    return Anneal.SampleSet{Int,T}(annealer, states, metadata)
 end
 
 end # module
