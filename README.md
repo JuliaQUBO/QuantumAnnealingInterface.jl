@@ -1,5 +1,5 @@
 # QuantumAnnealingInterface.jl
-JuMP interface for LANL's QuantumAnnealing.jl via [Anneal.jl](https://github.com/psrenergy/Anneal.jl)
+JuMP interface for LANL's [QuantumAnnealing.jl](https://github.com/lanl-ansi/QuantumAnnealing.jl) (ft. [Anneal.jl](https://github.com/psrenergy/Anneal.jl))
 
 ## How to
 ```julia
