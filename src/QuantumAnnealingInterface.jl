@@ -22,7 +22,7 @@ Anneal.@anew Optimizer begin
     end
 end
 
-const PARAMETER_LIST = [
+const ATTR_LIST = [
     :steps,
     :order,
     :mean_tol,
@@ -32,56 +32,53 @@ const PARAMETER_LIST = [
 ]
 
 function Anneal.sample(annealer::Optimizer{T}) where {T}
-    # ~*~ Retrieve Model ~*~ #
-    h, J, α, β  = Anneal.ising(annealer, Dict, T)
+    # Retrieve Model
+    h, J, α, β  = Anneal.ising(annealer, Dict)
     ising_model = merge(h, J)
 
-    # ~*~ Retrieve Attributes ~*~ #
-    n = MOI.get(annealer, MOI.NumberOfVariables())
-    m = MOI.get(annealer, MOI.RawOptimizerAttribute("num_reads"))
-
+    # Retrieve Attributes
+    n                  = MOI.get(annealer, MOI.NumberOfVariables())
+    m                  = MOI.get(annealer, MOI.RawOptimizerAttribute("num_reads"))
+    silent             = MOI.get(annealer, MOI.Silent())
     annealing_time     = MOI.get(annealer, MOI.RawOptimizerAttribute("annealing_time"))
     annealing_schedule = MOI.get(annealer, MOI.RawOptimizerAttribute("annealing_schedule"))
     
-    silent = MOI.get(annealer, MOI.Silent())
-
-    # ~*~ Timing Information ~*~ #
-    time_data = Dict{String,Any}()
-
-    params = Dict{Symbol,Any}(
-        param => MOI.get(annealer, MOI.RawOptimizerAttribute(string(param)))
-        for param in PARAMETER_LIST
+    attrs = Dict{Symbol,Any}(
+        attr => MOI.get(
+            annealer,
+            MOI.RawOptimizerAttribute(string(attr))
+        )
+        for attr in ATTR_LIST
     )
 
-    # ~*~ Run simulation ~*~ #
+    # Run simulation
     results = @timed QuantumAnnealing.simulate(
         ising_model,
         annealing_time,
         annealing_schedule;
         silence=silent,
-        params...
+        attrs...
     )
+    simulate_time = results.time
+
+    # Measurement & Probabilities
     ρ = results.value
-
-    time_data["simulation"] = results.time
-
-    # ~*~ Measure probabilities ~*~ #
     P = cumsum(real.(diag(ρ)))
 
-    # ~*~ Sample states ~*~ #
+    # Sample states
     results = @timed sample_states(P, h, J, α, β, n, m)
     samples = results.value
 
-    time_data["sampling"] = results.time
+    sample_time = results.time
 
-    time_data["effective"] = sum([
-        time_data["simulation"],
-        time_data["sampling"],
-    ])
-
+    # Write metadata
     metadata = Dict{String,Any}(
-        "time"   => time_data,
-        "origin" => "Quantum Annealing Simulation"
+        "origin" => "Quantum Annealing Simulation",
+        "time"   => Dict{String,Any}(
+            "sample"    => sample_time,
+            "simulate"  => simulate_time,
+            "effective" => simulate_time + sample_time,
+        ),
     )
 
     return Anneal.SampleSet{T}(samples, metadata)
@@ -100,21 +97,25 @@ function sample_states(
 
     for i = 1:m
         ψ = sample_state(P, n)
+        λ = α * (Anneal.value(h, J, ψ) + β)
 
-        samples[i] = Anneal.Sample{T}(ψ, α * (Anneal.energy(h, J, ψ) + β))
+        samples[i] = Anneal.Sample{T}(ψ, λ)
     end
 
     return samples
 end
 
-@inline function sample_state(P::Vector{Float64}, n::Integer)
-    # ~*~ Sample p ~ [0, 1] ~*~ #
+function sample_state(P::Vector{Float64}, n::Integer)
+    # Sample p ~ [0, 1]
     p = rand()
 
-    # ~*~ Run Binary Search ~*~ #
+    # Run Binary Search
     i = first(searchsorted(P, p))
 
-    return 2 * digits(Int, i - 1; base=2, pad=n) .- 1
+    # Format as spin vector i.e. ψ ∈ {±1}ⁿ
+    ψ = 2 * digits(Int, i - 1; base=2, pad=n) .- 1
+
+    return ψ
 end
 
 end # module
