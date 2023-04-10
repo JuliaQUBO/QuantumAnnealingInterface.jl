@@ -1,14 +1,13 @@
-name    = "QuantumAnnealingInterface"
-uuid    = "d8651ca0-0f93-43a8-b432-4648ccd57c1f"
+name = "QuantumAnnealingInterface"
+uuid = "d8651ca0-0f93-43a8-b432-4648ccd57c1f"
 authors = ["pedromxavier <pedromxavier@psr-inc.com>"]
 version = "0.1.0"
 
 [deps]
-Anneal           = "e4d9eb7f-b088-426e-aeb5-1c0dae3d8abb"
-LinearAlgebra    = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+QUBODrivers = "a3f166f7-2cd3-47b6-9e1e-6fbfe0449eb0"
 QuantumAnnealing = "4832667a-bab9-40a8-88f6-be9efce3ea89"
 
 [compat]
-Anneal           = "0.6"
 QuantumAnnealing = "0.2"
-julia            = "1.6"
+julia = "1.6"

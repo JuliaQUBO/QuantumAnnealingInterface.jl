@@ -1,3 +1,5 @@
-using QuantumAnnealingInterface
+using QuantumAnnealingInterface: MOI, QUBODrivers, QuantumAnnealingInterface
 
-QuantumAnnealingInterface.test(; examples=true)
+QUBODrivers.test(QuantumAnnealingInterface.Optimizer) do model
+    MOI.set(model, MOI.Silent(), true)
+end

@@ -1,10 +1,18 @@
 module QuantumAnnealingInterface
 
-using Anneal
 using LinearAlgebra
 using QuantumAnnealing
+import QUBODrivers:
+    MOI,
+    QUBODrivers,
+    QUBOTools,
+    Sample,
+    SampleSet,
+    @setup,
+    sample,
+    ising
 
-Anneal.@anew Optimizer begin
+@setup Optimizer begin
     name       = "Simulated Quantum Annealer"
     sense      = :min
     domain     = :spin
@@ -31,21 +39,21 @@ const ATTR_LIST = [
     :state_steps,
 ]
 
-function Anneal.sample(annealer::Optimizer{T}) where {T}
+function sample(sampler::Optimizer{T}) where {T}
     # Retrieve Model
-    h, J, α, β  = Anneal.ising(annealer, Dict)
+    h, J, α, β  = ising(sampler, Dict)
     ising_model = merge(h, J)
 
     # Retrieve Attributes
-    n                  = MOI.get(annealer, MOI.NumberOfVariables())
-    m                  = MOI.get(annealer, MOI.RawOptimizerAttribute("num_reads"))
-    silent             = MOI.get(annealer, MOI.Silent())
-    annealing_time     = MOI.get(annealer, MOI.RawOptimizerAttribute("annealing_time"))
-    annealing_schedule = MOI.get(annealer, MOI.RawOptimizerAttribute("annealing_schedule"))
+    n                  = MOI.get(sampler, MOI.NumberOfVariables())
+    m                  = MOI.get(sampler, MOI.RawOptimizerAttribute("num_reads"))
+    silent             = MOI.get(sampler, MOI.Silent())
+    annealing_time     = MOI.get(sampler, MOI.RawOptimizerAttribute("annealing_time"))
+    annealing_schedule = MOI.get(sampler, MOI.RawOptimizerAttribute("annealing_schedule"))
     
     attrs = Dict{Symbol,Any}(
         attr => MOI.get(
-            annealer,
+            sampler,
             MOI.RawOptimizerAttribute(string(attr))
         )
         for attr in ATTR_LIST
@@ -59,7 +67,7 @@ function Anneal.sample(annealer::Optimizer{T}) where {T}
         silence=silent,
         attrs...
     )
-    simulate_time = results.time
+    simulation_time = results.time
 
     # Measurement & Probabilities
     ρ = results.value
@@ -69,19 +77,19 @@ function Anneal.sample(annealer::Optimizer{T}) where {T}
     results = @timed sample_states(P, h, J, α, β, n, m)
     samples = results.value
 
-    sample_time = results.time
+    sampling_time = results.time
 
     # Write metadata
     metadata = Dict{String,Any}(
         "origin" => "Quantum Annealing Simulation",
         "time"   => Dict{String,Any}(
-            "sample"    => sample_time,
-            "simulate"  => simulate_time,
-            "effective" => simulate_time + sample_time,
+            "sampling"   => sampling_time,
+            "simulation" => simulation_time,
+            "effective"  => simulation_time + sampling_time,
         ),
     )
 
-    return Anneal.SampleSet{T}(samples, metadata)
+    return SampleSet{T}(samples, metadata)
 end
 
 function sample_states(
@@ -93,13 +101,13 @@ function sample_states(
     n::Integer,
     m::Integer,
 ) where {T}
-    samples = Vector{Anneal.Sample{T,Int}}(undef, m)
+    samples = Vector{Sample{T,Int}}(undef, m)
 
     for i = 1:m
         ψ = sample_state(P, n)
-        λ = α * (Anneal.value(h, J, ψ) + β)
+        λ = QUBOTools.value(h, J, ψ, α, β)
 
-        samples[i] = Anneal.Sample{T}(ψ, λ)
+        samples[i] = Sample{T}(ψ, λ)
     end
 
     return samples

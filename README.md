@@ -1,5 +1,7 @@
 # QuantumAnnealingInterface.jl
-JuMP interface for LANL's [QuantumAnnealing.jl](https://github.com/lanl-ansi/QuantumAnnealing.jl) (ft. [Anneal.jl](https://github.com/psrenergy/Anneal.jl))
+[![QUBODRIVERS](https://img.shields.io/badge/Powered%20by-QUBODrivers.jl-%20%234063d8)](https://github.com/psrenergy/QUBODrivers.jl)
+
+JuMP interface for LANL's [QuantumAnnealing.jl](https://github.com/lanl-ansi/QuantumAnnealing.jl)
 
 ## How to
 ```julia
