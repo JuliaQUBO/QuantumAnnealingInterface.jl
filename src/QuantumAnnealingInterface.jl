@@ -9,16 +9,13 @@ import QUBODrivers:
     Sample,
     SampleSet,
     @setup,
-    sample,
-    ising
+    sample
 
 @setup Optimizer begin
     name       = "Simulated Quantum Annealer"
-    sense      = :min
-    domain     = :spin
     version    = v"0.2.0"
     attributes = begin
-        "num_reads"::Integer                                     = 1_000
+        NumberOfReads["num_reads"]::Integer                      = 1_000
         "annealing_time"::Float64                                = 1.0
         "annealing_schedule"::QuantumAnnealing.AnnealingSchedule = QuantumAnnealing.AS_LINEAR
         "steps"::Integer                                         = 0
@@ -41,12 +38,11 @@ const ATTR_LIST = [
 
 function sample(sampler::Optimizer{T}) where {T}
     # Retrieve Model
-    h, J, α, β  = ising(sampler, Dict)
+    n, h, J, α, β = QUBOTools.ising(sampler, :dict; sense = :min)
     ising_model = merge(h, J)
 
     # Retrieve Attributes
-    n                  = MOI.get(sampler, MOI.NumberOfVariables())
-    m                  = MOI.get(sampler, MOI.RawOptimizerAttribute("num_reads"))
+    m                  = MOI.get(sampler, NumberOfReads())
     silent             = MOI.get(sampler, MOI.Silent())
     annealing_time     = MOI.get(sampler, MOI.RawOptimizerAttribute("annealing_time"))
     annealing_schedule = MOI.get(sampler, MOI.RawOptimizerAttribute("annealing_schedule"))
@@ -89,7 +85,7 @@ function sample(sampler::Optimizer{T}) where {T}
         ),
     )
 
-    return SampleSet{T}(samples, metadata)
+    return SampleSet{T}(samples, metadata; sense = :min, domain = :spin)
 end
 
 function sample_states(
@@ -105,9 +101,9 @@ function sample_states(
 
     for i = 1:m
         ψ = sample_state(P, n)
-        λ = QUBOTools.value(h, J, ψ, α, β)
+        λ = QUBOTools.value(ψ, h, J, α, β)
 
-        samples[i] = Sample{T}(ψ, λ)
+        samples[i] = Sample{T,Int}(ψ, λ)
     end
 
     return samples
