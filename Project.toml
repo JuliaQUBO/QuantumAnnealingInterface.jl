@@ -1,6 +1,6 @@
 name = "QuantumAnnealingInterface"
 uuid = "d8651ca0-0f93-43a8-b432-4648ccd57c1f"
-authors = ["pedromxavier <pedromxavier@psr-inc.com>"]
+authors = ["pedromxavier <pedromxavier@psr-inc.com>", "David E. Bernal Neira <dbernaln@purdue.edu>"]
 version = "0.1.0"
 
 [deps]
