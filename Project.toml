@@ -1,6 +1,6 @@
 name = "QuantumAnnealingInterface"
 uuid = "d8651ca0-0f93-43a8-b432-4648ccd57c1f"
-authors = ["pedromxavier <pedromxavier@psr-inc.com>"]
+authors = ["pedromxavier <pedromxavier@psr-inc.com>", "David E. Bernal Neira <dbernaln@purdue.edu>"]
 version = "0.1.0"
 
 [deps]
@@ -9,5 +9,6 @@ QUBODrivers = "a3f166f7-2cd3-47b6-9e1e-6fbfe0449eb0"
 QuantumAnnealing = "4832667a-bab9-40a8-88f6-be9efce3ea89"
 
 [compat]
+QUBODrivers = "0.5"
 QuantumAnnealing = "0.2"
-julia = "1.6"
+julia = "1.10"
