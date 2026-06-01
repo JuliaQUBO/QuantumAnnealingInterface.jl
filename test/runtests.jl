@@ -6,6 +6,7 @@ using Test
     usage = findfirst("## Usage", readme)
 
     @test occursin("Pkg.add(\"QuantumAnnealingInterface\")", readme)
+    @test occursin("Pkg.add(\"JuMP\")", readme)
     @test installation !== nothing
     @test usage !== nothing
 
