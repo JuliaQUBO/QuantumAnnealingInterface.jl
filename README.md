@@ -3,7 +3,13 @@
 
 JuMP interface for LANL's [QuantumAnnealing.jl](https://github.com/lanl-ansi/QuantumAnnealing.jl)
 
-## How to
+## Installation
+```julia
+import Pkg
+Pkg.add("QuantumAnnealingInterface")
+```
+
+## Usage
 ```julia
 using JuMP
 using QuantumAnnealingInterface
