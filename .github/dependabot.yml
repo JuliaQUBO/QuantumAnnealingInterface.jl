@@ -1,0 +1,27 @@
+version: 2
+updates:
+  # No repository secrets are required for this configuration. It uses
+  # GitHub's standard Dependabot integration for General registry packages and
+  # GitHub Actions updates.
+  - package-ecosystem: "julia"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      root-julia-dependencies:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "julia"
+    directory: "/test"
+    schedule:
+      interval: "weekly"
+    groups:
+      test-julia-dependencies:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
