@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.2.0 - 2026-06-13
+
 - Update compatibility to QUBODrivers 0.6.1 and replace the exact LinearSolve
   pin with lower-bounded compat.
 - Add QUBODrivers benchmark metadata, seed, final-read, and size-limit support.
