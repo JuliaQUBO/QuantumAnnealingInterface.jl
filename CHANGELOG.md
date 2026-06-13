@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Update compatibility to QUBODrivers 0.6.1 and replace the exact LinearSolve
+  pin with lower-bounded compat.
+- Add QUBODrivers benchmark metadata, seed, final-read, and size-limit support.
 - Add README installation instructions for JuMP and QuantumAnnealingInterface.
 - Add TagBot automation for registry-triggered tags.
 - Add Dependabot maintenance for Julia environments and GitHub Actions.

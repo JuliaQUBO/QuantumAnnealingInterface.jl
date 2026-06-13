@@ -26,3 +26,10 @@ Q = [ -1  2  2
 
 optimize!(model)
 ```
+
+## Simulation Size Limit
+
+QuantumAnnealing.jl's state-vector backend builds a dense `2^n` by `2^n`
+density matrix. `QuantumAnnealingInterface.Optimizer` rejects models with more
+than 12 variables by default through the `"max_variables"` optimizer attribute.
+Raise this limit only when the corresponding memory cost is acceptable.
