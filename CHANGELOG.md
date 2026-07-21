@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## v0.2.1 - 2026-07-21
+
+- No breaking changes.
+- Support LinearSolve 4.2 while retaining compatibility with LinearSolve 3.82.
+- Make compatibility metadata tests robust to future compat expansion.
+- Keep the full Julia and operating-system CI matrix while avoiding unnecessary
+  precompilation of the complete transitive test environment.
+- Harden TagBot permissions and update GitHub Actions dependencies.
+
 ## v0.2.0 - 2026-06-13
 
 - Update compatibility to QUBODrivers 0.6.1 and replace the exact LinearSolve
