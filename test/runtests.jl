@@ -1,6 +1,8 @@
 using Test
 import TOML
 
+_compat_entries(value::AbstractString) = strip.(split(value, ','))
+
 @testset "README installation docs" begin
     readme = read(joinpath(dirname(@__DIR__), "README.md"), String)
     installation = findfirst("## Installation", readme)
@@ -70,11 +72,13 @@ end
     project = TOML.parsefile(joinpath(root, "Project.toml"))
     deps = project["deps"]
     compat = project["compat"]
+    linearsolve_compat = _compat_entries(compat["LinearSolve"])
 
-    @test compat["QUBODrivers"] == "0.6.1"
+    @test "0.6.1" in _compat_entries(compat["QUBODrivers"])
     @test haskey(deps, "LinearSolve")
-    @test compat["LinearSolve"] == "3.82"
-    @test compat["LinearSolve"] != "=3.82.0"
+    @test "3.82" in linearsolve_compat
+    @test "4.2" in linearsolve_compat
+    @test all(entry -> !startswith(entry, "="), linearsolve_compat)
     @test haskey(deps, "Random")
 end
 
