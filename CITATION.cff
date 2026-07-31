@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: >-
+  If you use QuantumAnnealingInterface.jl, please cite this integration using
+  these metadata and cite the upstream QuantumAnnealing.jl work as appropriate.
+title: "QuantumAnnealingInterface.jl"
+type: software
+authors:
+  - family-names: "Bernal Neira"
+    given-names: "David E."
+    affiliation: "Purdue University"
+    orcid: "https://orcid.org/0000-0002-8308-5016"
+  - family-names: "Maciel Xavier"
+    given-names: "Pedro"
+    affiliation: "Purdue University"
+    orcid: "https://orcid.org/0000-0002-4678-4942"
+abstract: >-
+  A JuMP and QUBODrivers integration for LANL's QuantumAnnealing.jl simulator.
+repository-code: "https://github.com/JuliaQUBO/QuantumAnnealingInterface.jl"
+license: MIT
+version: "0.2.1"
+date-released: "2026-07-21"
+doi: "10.5281/zenodo.20434507"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21480962"
+    description: "Zenodo DOI for version 0.2.1"
+keywords:
+  - Julia
+  - quantum annealing
+  - quadratic unconstrained binary optimization
+  - QUBO
+references:
+  - type: article
+    title: >-
+      QuantumAnnealing: A Julia Package for Simulating Dynamics of Transverse
+      Field Ising Models
+    authors:
+      - family-names: "Morrell"
+        given-names: "Zachary"
+      - family-names: "Vuffray"
+        given-names: "Marc"
+      - family-names: "Misra"
+        given-names: "Sidhant"
+      - family-names: "Coffrin"
+        given-names: "Carleton"
+    year: 2024
+    url: "https://arxiv.org/abs/2404.14501"
+    scope: >-
+      Cite this work when using the upstream QuantumAnnealing.jl simulator.
