@@ -36,6 +36,7 @@ concept DOI.
       interval and retry once before treating the archive as missing.
 
 - [ ] Record the new version DOI in the GitHub release notes and update the
+- [ ] Record the new version DOI in the GitHub release notes, and update the
       version DOI in `CITATION.cff` together with the exact-version paragraph
       in `README.md`, during release preparation or the immediate
       citation-metadata follow-up.
