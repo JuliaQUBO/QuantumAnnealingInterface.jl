@@ -58,9 +58,6 @@ integration.
 For general discussion of the JuliaQUBO ecosystem, cite the
 [QUBO.jl ecosystem article](https://doi.org/10.1080/10556788.2026.2702926).
 
-For general discussion of the JuliaQUBO ecosystem, cite the
-[QUBO.jl ecosystem article](https://doi.org/10.1080/10556788.2026.2702926).
-
 Release-time archive verification steps are in
 [`.github/RELEASE_CHECKLIST.md`](.github/RELEASE_CHECKLIST.md).
 
