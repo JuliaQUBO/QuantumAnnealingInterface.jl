@@ -55,6 +55,12 @@ Ising Models"](https://arxiv.org/abs/2404.14501), following the upstream citatio
 guidance. Cite both works when your results depend on the simulator and this
 integration.
 
+For general discussion of the JuliaQUBO ecosystem, cite the
+[QUBO.jl ecosystem article](https://doi.org/10.1080/10556788.2026.2702926).
+
+Release-time archive verification steps are in
+[`.github/RELEASE_CHECKLIST.md`](.github/RELEASE_CHECKLIST.md).
+
 Maintained releases continue under the existing concept DOI. If this package is
 deprecated, its final archive and concept DOI will be frozen rather than deleted
 or replaced.

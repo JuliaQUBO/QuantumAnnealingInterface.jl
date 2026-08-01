@@ -47,3 +47,25 @@ references:
     url: "https://arxiv.org/abs/2404.14501"
     scope: >-
       Cite this work when using the upstream QuantumAnnealing.jl simulator.
+  - type: article
+    title: >-
+      QUBO.jl: A Julia Ecosystem for Quadratic Unconstrained Binary
+      Optimization
+    authors:
+      - family-names: "Maciel Xavier"
+        given-names: "Pedro"
+      - family-names: "Ripper"
+        given-names: "Pedro"
+      - family-names: "Andrade"
+        given-names: "Tiago"
+      - family-names: "Dias Garcia"
+        given-names: "Joaquim"
+      - family-names: "Maculan"
+        given-names: "Nelson"
+      - family-names: "Bernal Neira"
+        given-names: "David E."
+    journal: "Optimization Methods and Software"
+    year: 2026
+    doi: "10.1080/10556788.2026.2702926"
+    scope: >-
+      Cite this work for general use of the JuliaQUBO ecosystem.
