@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add Zenodo citation metadata, wrapper/upstream citation guidance, and a
+  release-time archive verification checklist.
+
 ## v0.2.1 - 2026-07-21
 
 - No breaking changes.
