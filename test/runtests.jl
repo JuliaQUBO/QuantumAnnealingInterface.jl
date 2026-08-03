@@ -1,6 +1,8 @@
 using Test
 import TOML
 
+include("citation.jl")
+
 _compat_entries(value::AbstractString) = strip.(split(value, ','))
 
 @testset "README installation docs" begin
