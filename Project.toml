@@ -11,7 +11,9 @@ QuantumAnnealing = "4832667a-bab9-40a8-88f6-be9efce3ea89"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
+LinearAlgebra = "1.10"
 LinearSolve = "3.82, 4.2, 5.0"
 QUBODrivers = "0.6.1"
 QuantumAnnealing = "0.2"
+Random = "1.10"
 julia = "1.10"
